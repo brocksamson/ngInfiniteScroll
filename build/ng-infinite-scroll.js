@@ -113,6 +113,9 @@ mod.directive('infiniteScroll', [
           handler = throttle(handler, THROTTLE_MILLISECONDS);
         }
         scope.$on('$destroy', function() {
+          if (checkInterval) {
+            $interval.cancel(checkInterval);
+          }
           container.unbind('scroll', handler);
           if (unregisterEventListener != null) {
             unregisterEventListener();
